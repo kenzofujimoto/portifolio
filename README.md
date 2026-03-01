@@ -19,4 +19,4 @@ Este portfólio centraliza meus projetos práticos, focados em resolver problema
 | [**🤖 Mackenzo (Em Evolução)**](#) | Agente/Chatbot acadêmico estruturado em microsserviços para consumo de informações institucionais. | `Python`, `APIs`, `DevOps` |
 
 ---
-*🔗 Conecte-se comigo no [LinkedIn](#) para conversarmos sobre tecnologia, inovação e processos de Trainee.*
+*🔗 Conecte-se comigo no [LinkedIn](https://www.linkedin.com/in/kenzoferreirafujimoto/) para conversarmos sobre tecnologia, inovação e processos de Trainee.*
