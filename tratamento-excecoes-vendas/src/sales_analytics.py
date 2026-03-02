@@ -1,62 +1,70 @@
 import pandas as pd
 from pathlib import Path
 
-def get_quantity_ordered_sum(sales_quantity_ordered):
-    """Calculates the total sum on the 'quantity_ordered' column.
+def calcular_soma_quantidades(serie_quantidades):
+    """
+    Calcula a soma total da coluna de quantidades pedidas.
 
     Args:
-        sales_quantity_ordered (pd.core.series.Series): The pandas Series for the 'quantity_ordered' column.
+        serie_quantidades (pd.Series): A série do Pandas contendo as quantidades.
 
     Returns:
-        total_quantity_ordered (int): The total sum of the 'quantity_ordered' column.
+        int: O valor total das quantidades pedidas.
+    
+    Raises:
+        ValueError: Se encontrar algum valor negativo na série.
     """
+    total_quantidades = 0
+    
+    for quantidade in serie_quantidades:
+        if quantidade < 0:
+            raise ValueError(f"Erro de Integridade: Quantidade negativa detectada ({quantidade}).")
+        total_quantidades += quantidade
+        
+    return total_quantidades
 
-    total_quantity_ordered = 0
-    for quantity in sales_quantity_ordered:
-        if quantity < 0:
-            raise ValueError(f"Erro de Integridade: Quantidade negativa detectada ({quantity}).")
-        total_quantity_ordered += quantity
-    return total_quantity_ordered
 
-def get_price_each_average(sales_price_each, num_places=2):
-    """Calculates the average on the 'price_each' column
-        using pandas built in methods and rounds to the desired number of places.
+def calcular_media_precos(serie_precos, casas_decimais=2):
+    """
+    Calcula a média da coluna de preços unitários e arredonda o resultado.
 
     Args:
-        sales_price_each (pd.core.series.Series): The pandas Series for the 'price_each' column.
-        num_of_places (int): The number of decimal places to round.
+        serie_precos (pd.Series): A série do Pandas contendo os preços.
+        casas_decimais (int): O número de casas decimais para o arredondamento.
 
     Returns:
-        average_price_each (float): The average of the 'price_each' column.
+        float: A média calculada dos preços.
+        
+    Raises:
+        TypeError: Se a coluna contiver valores não numéricos.
     """
+    if not pd.api.types.is_numeric_dtype(serie_precos):
+        raise TypeError("Erro de Qualidade: A coluna de preços contém valores não numéricos (ex: textos).")
 
-    if not pd.api.types.is_numeric_dtype(sales_price_each):
-        raise TypeError("Data Quality Error: A coluna 'price_each' contém valores não numéricos (ex: textos).")
+    soma_total_precos = serie_precos.sum()
+    quantidade_itens = len(serie_precos)
 
-    total_of_price_each = sales_price_each.sum()
-    len_of_price_each = len(sales_price_each)
-
-    if len_of_price_each == 0:
+    if quantidade_itens == 0:
         return 0.0
 
-    average_price_each = round(
-        total_of_price_each / len_of_price_each, num_places
-    )
-    return average_price_each
+    media_precos = round(soma_total_precos / quantidade_itens, casas_decimais)
+    return media_precos
+
 
 if __name__ == "__main__":
-    
+    # Navegação de pastas profissional
     DIRETORIO_ATUAL = Path(__file__).resolve().parent
     CAMINHO_CSV = DIRETORIO_ATUAL.parent / "data" / "sales_data_sample.csv"
     
     try:
-        sales_df = pd.read_csv(CAMINHO_CSV)
+        df_vendas = pd.read_csv(CAMINHO_CSV)
         
-        total_qtd = get_quantity_ordered_sum(sales_df['quantity_ordered'])
+        # Chamando as funções com os nomes padronizados
+        total_qtd = calcular_soma_quantidades(df_vendas['quantity_ordered'])
         print(f"✅ Total de Quantidades Pedidas: {total_qtd}")
         
-        media_preco = get_price_each_average(sales_df['price_each'])
-        print(f"✅ Média de Preço (Price Each): {media_preco}")
+        media_preco = calcular_media_precos(df_vendas['price_each'])
+        print(f"✅ Média de Preço Unitário: {media_preco}")
         
     except FileNotFoundError:
         print(f"❌ Erro: O arquivo não foi encontrado no caminho {CAMINHO_CSV}")

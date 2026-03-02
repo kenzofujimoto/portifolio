@@ -1,15 +1,12 @@
 import pytest
 import pandas as pd
-from src.sales_analytics import get_quantity_ordered_sum, get_price_each_average
+from src.sales_analytics import calcular_soma_quantidades, calcular_media_precos
 
-# ==========================================
-# Testes para get_quantity_ordered_sum()
-# ==========================================
 
 def test_soma_quantidades_sucesso():
     """Testa o caminho feliz: dados normais."""
     dados_mock = pd.Series([10, 20, 30])
-    resultado = get_quantity_ordered_sum(dados_mock)
+    resultado = calcular_soma_quantidades(dados_mock)
     assert resultado == 60
 
 def test_soma_quantidades_valor_negativo():
@@ -18,7 +15,7 @@ def test_soma_quantidades_valor_negativo():
     
     # O pytest.raises verifica se a função "grita" o erro correto
     with pytest.raises(ValueError, match="Quantidade negativa detectada"):
-        get_quantity_ordered_sum(dados_mock)
+        calcular_soma_quantidades(dados_mock)
 
 
 # ==========================================
@@ -28,7 +25,7 @@ def test_soma_quantidades_valor_negativo():
 def test_media_precos_sucesso():
     """Testa o cálculo da média com dados perfeitos e arredondamento."""
     dados_mock = pd.Series([10.555, 20.111, 30.000]) # Média exata é 20.222
-    resultado = get_price_each_average(dados_mock, num_places=2)
+    resultado = calcular_media_precos(dados_mock, num_places=2)
     assert resultado == 20.22  # O arredondamento deve funcionar
 
 def test_media_precos_texto_no_meio():
@@ -37,4 +34,4 @@ def test_media_precos_texto_no_meio():
     dados_mock = pd.Series([10.50, "vinte reais", 30.00])
     
     with pytest.raises(TypeError, match="valores não numéricos"):
-        get_price_each_average(dados_mock)
+        calcular_media_precos(dados_mock)
