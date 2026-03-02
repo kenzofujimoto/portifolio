@@ -17,6 +17,7 @@ Este portfólio centraliza meus projetos práticos, focados em resolver problema
 | :--- | :--- | :--- |
 | [**🛡️ ETL de Threat Intelligence (NVD)**](./etl-vulnerabilidades) | Pipeline automatizado que extrai as falhas de segurança (CVEs) mais recentes do banco de dados do governo americano, transforma os dados e salva em formato otimizado para Data Lakes. | `Python`, `Pandas`, `Docker`, `Parquet` |
 | [**🤖 Mackenzo (Em Evolução)**](#) | Agente/Chatbot acadêmico estruturado em microsserviços para consumo de informações institucionais. | `Python`, `APIs`, `DevOps` |
+| [**🛠️ Data Quality: Sales Analytics**](./tratamento-excecoes-vendas) | Pipeline de análise financeira com implementação de Programação Defensiva (tratamento de exceções) e testes automatizados. | `Python`, `Pandas`, `Pytest` |
 
 ---
 *🔗 Conecte-se comigo no [LinkedIn](https://www.linkedin.com/in/kenzoferreirafujimoto/) para conversarmos sobre tecnologia, inovação e processos de Trainee.*
