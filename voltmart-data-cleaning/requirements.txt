@@ -1,0 +1,6 @@
+# PySpark Engine
+pyspark>=3.3.0
+
+# Bibliotecas de apoio para manipulação local e conversão Parquet
+pandas>=1.5.0
+pyarrow>=10.0.0
